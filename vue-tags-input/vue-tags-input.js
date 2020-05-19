@@ -9,6 +9,7 @@ import props from './vue-tags-input.props';
 
 export default {
   name: 'VueTagsInput',
+  inheritAttrs: false,
   components: { TagInput },
   props,
   data() {

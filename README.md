@@ -47,11 +47,7 @@ CDN (:warning: → @johmun/vue-tags-input)
 ```html
 <template>
   <div>
-    <vue-tags-input
-      v-model="tag"
-      :tags="tags"
-      @tags-changed="newTags => tags = newTags"
-    />
+    <vue-tags-input v-model="tag" :tags="tags" @tags-changed="newTags => tags = newTags" />
   </div>
 </template>
 ```
@@ -73,6 +69,13 @@ export default {
 };
 </script>
 ```
+
+## TODO
+
+- [ ] Publish a Pull request for `inheritAttrs: false` in `@johmun/vue-tags-input`.
+- [ ] Update the documentation about the consequencies of `inheritAttrs: false` and publish it.
+- [ ] Upgrade all the packages to their latest version.
+- [ ] Document the NPM publish workflow with `np`.
 
 ## License
 
