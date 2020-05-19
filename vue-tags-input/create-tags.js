@@ -1,18 +1,19 @@
 // helper functions
 
 const validateUserRules = (tag, validation) => {
-  return validation.filter(val => {
-    const { text } = tag;
-    // if the rule is a string, we convert it to RegExp
-    if (typeof val.rule === 'string') return !new RegExp(val.rule).test(text);
+  return validation
+    .filter(val => {
+      const { text } = tag;
+      // if the rule is a string, we convert it to RegExp
+      if (typeof val.rule === 'string') return !new RegExp(val.rule).test(text);
 
-    if (val.rule instanceof RegExp) return !val.rule.test(text);
+      if (val.rule instanceof RegExp) return !val.rule.test(text);
 
-    // if we deal with a function, invoke it
-    const isFunction = {}.toString.call(val.rule) === '[object Function]';
-    if (isFunction) return val.rule(tag);
-
-  }).map(val => val.classes);
+      // if we deal with a function, invoke it
+      const isFunction = {}.toString.call(val.rule) === '[object Function]';
+      if (isFunction) return val.rule(tag);
+    })
+    .map(val => val.classes);
 };
 
 const clone = node => JSON.parse(JSON.stringify(node));
@@ -39,8 +40,9 @@ const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
   const inputTag = index !== -1 ? tagsDiff.splice(index, 1)[0] : clone(tag);
 
   // check whether the tag is a duplicate or not
-  const duplicate = customDuplicateFn ? customDuplicateFn(tagsDiff, inputTag) :
-    tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
+  const duplicate = customDuplicateFn
+    ? customDuplicateFn(tagsDiff, inputTag)
+    : tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
 
   // if it's a duplicate, push the class duplicate to the array
   if (duplicate) classes.push('ti-duplicate');

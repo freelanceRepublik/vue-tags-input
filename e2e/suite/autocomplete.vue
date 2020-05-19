@@ -5,7 +5,7 @@
       class="input-0"
       :tags="tags"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags"
+      @tags-changed="newTags => (tags = newTags)"
     />
     <vue-tags-input
       v-model="tag"
@@ -14,7 +14,7 @@
       :add-only-from-autocomplete="true"
       :autocomplete-min-length="0"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags"
+      @tags-changed="newTags => (tags = newTags)"
     />
     <vue-tags-input
       v-model="tag"
@@ -24,7 +24,7 @@
       :autocomplete-filter-duplicates="false"
       :autocomplete-always-open="true"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags"
+      @tags-changed="newTags => (tags = newTags)"
     />
   </div>
 </template>
@@ -41,15 +41,20 @@ export default {
     return {
       tag: '',
       tags: [],
-      autocompleteItems: [{
-        text: 'item-1',
-      }, {
-        text: 'item-1',
-      }, {
-        text: 'item-2',
-      }, {
-        text: 'item-3',
-      }],
+      autocompleteItems: [
+        {
+          text: 'item-1',
+        },
+        {
+          text: 'item-1',
+        },
+        {
+          text: 'item-2',
+        },
+        {
+          text: 'item-3',
+        },
+      ],
     };
   },
 };

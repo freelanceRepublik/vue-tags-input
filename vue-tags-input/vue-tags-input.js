@@ -26,10 +26,12 @@ export default {
     // Property which calculates if the autocomplete should be opened or not
     autocompleteOpen() {
       if (this.autocompleteAlwaysOpen) return true;
-      return this.newTag !== null
-        && this.newTag.length >= this.autocompleteMinLength
-        && this.filteredAutocompleteItems.length > 0
-        && this.focused;
+      return (
+        this.newTag !== null &&
+        this.newTag.length >= this.autocompleteMinLength &&
+        this.filteredAutocompleteItems.length > 0 &&
+        this.focused
+      );
     },
     // Returns validated autocomplete items. Maybe duplicates are filtered out
     filteredAutocompleteItems() {
@@ -75,7 +77,7 @@ export default {
       if (!this.deleteOnBackspace || this.newTag.length > 0) return;
       const lastIndex = this.tagsCopy.length - 1;
       if (this.deletionMark === null) {
-        this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);
+        this.deletionMarkTime = setTimeout(() => (this.deletionMark = null), 1000);
         this.deletionMark = lastIndex;
       } else this.performDeleteTag(lastIndex);
     },
@@ -121,9 +123,7 @@ export default {
       // yes, this sucks ...
       const tag = this.tagsCopy[index];
       tag.text = event ? event.target.value : this.tagsCopy[index].text;
-      this.$set(this.tagsCopy, index,
-        createTag(tag, this.tagsCopy, this.validation, this.isDuplicate)
-      );
+      this.$set(this.tagsCopy, index, createTag(tag, this.tagsCopy, this.validation, this.isDuplicate));
     },
     // Focuses the input of a tag
     focus(index) {
@@ -138,9 +138,7 @@ export default {
     // Cancels the edit mode for a tag → resets the tag to it's original model!
     cancelEdit(index) {
       if (!this.tags[index]) return;
-      this.tagsCopy[index] = clone(
-        createTag(this.tags[index], this.tags, this.validation, this.isDuplicate)
-      );
+      this.tagsCopy[index] = clone(createTag(this.tags[index], this.tags, this.validation, this.isDuplicate));
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {
@@ -192,15 +190,14 @@ export default {
     },
     // Decides wether the input keyCode is one, which is allowed to modify/add tags
     noTriggerKey(event, category) {
-      const triggerKey = this[category].indexOf(event.keyCode) !== -1
-        || this[category].indexOf(event.key) !== -1;
+      const triggerKey = this[category].indexOf(event.keyCode) !== -1 || this[category].indexOf(event.key) !== -1;
       if (triggerKey) event.preventDefault();
       return !triggerKey;
     },
     // Method to call to add a tag
     performAddTags(tag, event, source) {
       // If the input is disabled or the function was invoked by no trigger key → stop
-      if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
+      if (this.disabled || (event && this.noTriggerKey(event, 'addOnKey'))) return;
 
       // Convert the string or object into a tags array
       let tags = [];
@@ -228,9 +225,7 @@ export default {
       });
     },
     duplicateFilter(tag) {
-      return this.isDuplicate
-        ? !this.isDuplicate(this.tagsCopy, tag)
-        : !this.tagsCopy.find(t => t.text === tag.text);
+      return this.isDuplicate ? !this.isDuplicate(this.tagsCopy, tag) : !this.tagsCopy.find(t => t.text === tag.text);
     },
     addTag(tag, source = 'new-tag-input') {
       // Check if we should only add items from autocomplete and if so,
@@ -284,7 +279,7 @@ export default {
       const tag = this.tagsCopy[index];
 
       // If the input is disabled or the function was invoked by no trigger key → stop
-      if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
+      if (this.disabled || (event && this.noTriggerKey(event, 'addOnKey'))) return;
 
       // If the tag has no content → stop
       if (tag.text.trim().length === 0) return;
@@ -310,9 +305,9 @@ export default {
       if (this.avoidAddingDuplicates) {
         const tagsDiff = clone(this.tagsCopy);
         const inputTag = tagsDiff.splice(index, 1)[0];
-        const dup = this.isDuplicate ?
-          this.isDuplicate(tagsDiff, inputTag) :
-          tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
+        const dup = this.isDuplicate
+          ? this.isDuplicate(tagsDiff, inputTag)
+          : tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
 
         /**
          * @description Emits if the user tries to save a duplicate in the tag's array
@@ -370,7 +365,7 @@ export default {
     },
   },
   watch: {
-    value(newValue){
+    value(newValue) {
       // If v-model change outside, update the newTag model
       if (!this.addOnlyFromAutocomplete) this.selectedItem = null;
       this.newTag = newValue;

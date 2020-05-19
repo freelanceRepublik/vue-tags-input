@@ -12,11 +12,11 @@
       v-model="tag"
       :tags="tags"
       :allow-edit-tags="true"
-      @tags-changed="newTags => tags = newTags"
-      @before-adding-tag="obj => handler = obj.addTag"
-      @before-editing-tag="obj => handler = obj.editTag"
-      @before-deleting-tag="obj => handler = obj.deleteTag"
-      @before-saving-tag="obj => handler = obj.saveTag"
+      @tags-changed="newTags => (tags = newTags)"
+      @before-adding-tag="obj => (handler = obj.addTag)"
+      @before-editing-tag="obj => (handler = obj.editTag)"
+      @before-deleting-tag="obj => (handler = obj.deleteTag)"
+      @before-saving-tag="obj => (handler = obj.saveTag)"
     />
   </div>
 </template>
@@ -38,12 +38,12 @@ export default {
   },
   methods: {
     cancel() {
-      this.$nextTick(() => this.handler = null);
+      this.$nextTick(() => (this.handler = null));
       this.tag = '';
     },
     action() {
       this.handler();
-      this.$nextTick(() => this.handler = null);
+      this.$nextTick(() => (this.handler = null));
     },
   },
 };

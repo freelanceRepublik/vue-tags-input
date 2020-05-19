@@ -232,17 +232,12 @@ export default {
         const missingRule = !v.rule;
         if (missingRule) console.warn('Property "rule" is missing', v);
 
-        const validRule = v.rule && (
-          typeof v.rule === 'string' ||
-          v.rule instanceof RegExp ||
-          {}.toString.call(v.rule) === '[object Function]'
-        );
+        const validRule =
+          v.rule &&
+          (typeof v.rule === 'string' || v.rule instanceof RegExp || {}.toString.call(v.rule) === '[object Function]');
 
         if (!validRule) {
-          console.warn(
-            'A rule must be type of string, RegExp or function. Found:',
-            JSON.stringify(v.rule)
-          );
+          console.warn('A rule must be type of string, RegExp or function. Found:', JSON.stringify(v.rule));
         }
 
         const missingClasses = !v.classes;

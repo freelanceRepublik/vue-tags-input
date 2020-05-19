@@ -8,7 +8,7 @@
       :avoid-adding-duplicates="false"
       :validation="validation"
       :autocomplete-items="filteredItems"
-      @tags-changed="newTags => tags = newTags"
+      @tags-changed="newTags => (tags = newTags)"
     />
   </div>
 </template>
@@ -25,33 +25,44 @@ export default {
     return {
       tag: '',
       tags: [],
-      autocompleteItems: [{
-        text: 'Invalid because of "8"',
-      }, {
-        text: 'toShort',
-      }, {
-        text: 'I am valid',
-      }, {
-        text: 'Cannot be added',
-      }, {
-        text: 'Invalid because of {',
-      }],
-      validation: [{
-        classes: 'min-length',
-        rule: /^.{8,}$/,
-      }, {
-        classes: 'no-numbers',
-        rule: /^([^0-9]*)$/,
-      }, {
-        classes: 'avoid-item',
-        rule: /^(?!Cannot).*$/,
-        disableAdd: true,
-      }, {
-        classes: 'no-braces',
-        rule({ text }) {
-          return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
+      autocompleteItems: [
+        {
+          text: 'Invalid because of "8"',
         },
-      }],
+        {
+          text: 'toShort',
+        },
+        {
+          text: 'I am valid',
+        },
+        {
+          text: 'Cannot be added',
+        },
+        {
+          text: 'Invalid because of {',
+        },
+      ],
+      validation: [
+        {
+          classes: 'min-length',
+          rule: /^.{8,}$/,
+        },
+        {
+          classes: 'no-numbers',
+          rule: /^([^0-9]*)$/,
+        },
+        {
+          classes: 'avoid-item',
+          rule: /^(?!Cannot).*$/,
+          disableAdd: true,
+        },
+        {
+          classes: 'no-braces',
+          rule({ text }) {
+            return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
+          },
+        },
+      ],
     };
   },
   computed: {

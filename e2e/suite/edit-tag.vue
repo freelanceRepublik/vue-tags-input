@@ -1,10 +1,6 @@
 <template lang="html">
   <div class="e2e-suite edit-tag">
-    <vue-tags-input
-      v-model="tag"
-      :tags="tags"
-      :allow-edit-tags="true"
-    />
+    <vue-tags-input v-model="tag" :tags="tags" :allow-edit-tags="true" />
   </div>
 </template>
 

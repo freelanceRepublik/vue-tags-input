@@ -6,12 +6,6 @@ import TagInput from '../vue-tags-input/tag-input.vue';
 VueTagsInput.install = Vue => Vue.component(VueTagsInput.name, VueTagsInput);
 if (typeof window !== 'undefined' && window.Vue) window.Vue.use(VueTagsInput);
 
-export {
-  VueTagsInput,
-  createClasses,
-  createTag,
-  createTags,
-  TagInput,
-};
+export { VueTagsInput, createClasses, createTag, createTags, TagInput };
 
 export default VueTagsInput;

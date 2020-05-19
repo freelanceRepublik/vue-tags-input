@@ -8,7 +8,7 @@
       :save-on-key="[188, 32]"
       :allow-edit-tags="true"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags"
+      @tags-changed="newTags => (tags = newTags)"
     />
   </div>
 </template>
@@ -25,15 +25,20 @@ export default {
     return {
       tag: '',
       tags: [],
-      autocompleteItems: [{
-        text: 'france',
-      }, {
-        text: 'china',
-      }, {
-        text: 'spain',
-      }, {
-        text: 'germany',
-      }],
+      autocompleteItems: [
+        {
+          text: 'france',
+        },
+        {
+          text: 'china',
+        },
+        {
+          text: 'spain',
+        },
+        {
+          text: 'germany',
+        },
+      ],
     };
   },
 };
